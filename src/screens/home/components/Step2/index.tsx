@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function Step2({register, setRegister, handleNextStep}: Props){
-  console.log({ register})
   return(
     <main className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'>
       <h2 className='mb-5 text-txt-primary text-lg'>Informe o seu CEP!</h2>

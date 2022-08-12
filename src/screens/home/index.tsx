@@ -4,6 +4,7 @@ import { ButtonBack } from '../../components/Button/ButtonBack/index';
 import { Step1 } from './components/Step1';
 import { Step2 } from './components/Step2';
 import { Step3 } from './components/Step3';
+import { Step4 } from './components/Step4';
 
 export interface RegisterProps {
   number: string;
@@ -13,8 +14,9 @@ export interface RegisterProps {
 
 const StepsProps = {
   1: '0px',
-  2: '50%',
-  3: '100%'
+  2: '33%',
+  3: '66%',
+  4: "100%",
 } as any
 
 function Home() {
@@ -36,7 +38,7 @@ function Home() {
   
   return (
     <div className="bg-[#f8f8f8] w-screen h-screen overflow-hidden flex justify-center items-center">
-      <div className="bg-white h-full w-full sm:border-2 sm:w-[600px] sm:h-[600px] sm:shadow-md rounded-lg">
+      <div className="bg-white h-full w-full sm:w-[600px] sm:h-[600px] sm:shadow-md rounded-lg">
         
         <header className="h-14 flex flex-col justify-center gap-2">
           {step > 1 ? <ButtonBack className='ml-3' onClick={handleBack}/> : <div className='h-9' />}
@@ -49,7 +51,7 @@ function Home() {
         {step === 1 && <Step1 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />} 
         {step === 2 && <Step2 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />}
         {step === 3 && <Step3 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />}
-        {/* {step === 4 && <Step4 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />} */}
+        {step === 4 && <Step4 />}
       </div>
     </div>
   )
