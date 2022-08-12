@@ -7,8 +7,10 @@ module.exports = {
       roboto: ["Roboto"]
     },
     colors: {
-      'primary': "#4F4F4F",
+      'txt-primary': "#4F4F4F",
       'gray-500': "#828282",
+      "primary": "#00BCAF",
+      "white": "#fff",
     }
 	},
 	plugins: [],
