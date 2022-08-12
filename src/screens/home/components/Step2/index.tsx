@@ -1,3 +1,4 @@
+import { motion as m } from 'framer-motion';
 import { RegisterProps } from "../..";
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
 
@@ -9,7 +10,12 @@ interface Props {
 
 export function Step2({register, setRegister, handleNextStep}: Props){
   return(
-    <main className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'>
+    <m.main 
+      className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+    >
       <h2 className='mb-5 text-txt-primary text-lg'>Informe o seu CEP!</h2>
       <p className='mb-8 text-center text-gray-500 text-sm'>Esta é uma informação vital para personalizar o conteúdo com base na sua localização.</p>
 
@@ -36,6 +42,6 @@ export function Step2({register, setRegister, handleNextStep}: Props){
       <button className="mt-2 mb-6 text-primary text-sm">Não sabe seu CEP?</button>
 
       <ButtonPrimary text='PRÓXIMO' className='mb-10' onClick={handleNextStep}/>
-    </main>
+    </m.main>
   )
 }

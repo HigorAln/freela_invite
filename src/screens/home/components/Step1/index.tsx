@@ -1,3 +1,4 @@
+import { motion as m } from 'framer-motion';
 import { RegisterProps } from "../..";
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
 
@@ -9,7 +10,12 @@ interface Props {
 
 export const Step1 = ({ register, setRegister, handleNextStep}: Props) => {
   return(
-    <main className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'>
+    <m.main 
+      className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+    >
       <h2 className='mb-9 text-txt-primary text-lg'>Você foi convidado por João Pedro</h2>
       <h1 className='mb-4 text-txt-primary marker:text-xl'>Insira seu número</h1>
       <p className='mb-5 text-center w-5/6 text-gray-500 text-sm'>Sendo eleitor ou candidato insira seu número de celular para criação ou login de perfil.</p>
@@ -31,6 +37,6 @@ export const Step1 = ({ register, setRegister, handleNextStep}: Props) => {
       />  
 
       <ButtonPrimary text='PRÓXIMO' className='mb-10' onClick={handleNextStep} />
-    </main>
+    </m.main>
   )
 }

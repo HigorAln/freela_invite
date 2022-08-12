@@ -1,4 +1,4 @@
-import { motion as m } from 'framer-motion';
+import { AnimatePresence, motion as m } from 'framer-motion';
 import { useState } from 'react';
 import { ButtonBack } from '../../components/Button/ButtonBack/index';
 import { Step1 } from './components/Step1';
@@ -37,7 +37,7 @@ function Home() {
   }
   
   return (
-    <div className="bg-[#f8f8f8] w-screen h-screen overflow-hidden flex justify-center items-center">
+    <div className="bg-[#f8f8f8] w-screen h-[100vh - 15rem] overflow-hidden flex justify-center items-center">
       <div className="bg-white h-full w-full sm:w-[600px] sm:h-[600px] sm:shadow-md rounded-lg">
         
         <header className="h-14 flex flex-col justify-center gap-2">
@@ -48,10 +48,30 @@ function Home() {
           />
         </header>
 
-        {step === 1 && <Step1 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />} 
-        {step === 2 && <Step2 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />}
-        {step === 3 && <Step3 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />}
-        {step === 4 && <Step4 />}
+        {/* NUMBER */}
+        {step === 1 && (
+          <AnimatePresence>
+            <Step1 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />
+          </AnimatePresence>
+        )} 
+        {/* CEP */}
+        {step === 2 && (
+          <AnimatePresence>
+            <Step2 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />
+          </AnimatePresence>
+        )}
+        {/* NAME */}
+        {step === 3 && (
+          <AnimatePresence>
+            <Step3 register={register} setRegister={setRegister} handleNextStep={handleNextStep} />
+          </AnimatePresence>
+        )}
+        {/* COMPLETE */}
+        {step === 4 && (
+          <AnimatePresence>
+            <Step4 /> 
+          </AnimatePresence>
+        )}
       </div>
     </div>
   )
