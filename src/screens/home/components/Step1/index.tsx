@@ -24,6 +24,7 @@ export const Step1 = ({ register, setRegister, handleNextStep}: Props) => {
         className='border-[1px] border-[#ddd] px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg mb-8 text-primary focus:outline-primary'
         placeholder='+55 (99) 9 99999-9999'
         value={register.number}
+        maxLength={19}
         onChange={(e) => {
           const value = e.target.value
             .replace(/\D/g,"")
@@ -36,7 +37,7 @@ export const Step1 = ({ register, setRegister, handleNextStep}: Props) => {
         }}
       />  
 
-      <ButtonPrimary text='PRÓXIMO' className='mb-10' onClick={handleNextStep} />
+      <ButtonPrimary disabled={register?.number.length !== 19} text='PRÓXIMO' className='mb-10' onClick={handleNextStep} />
     </m.main>
   )
 }

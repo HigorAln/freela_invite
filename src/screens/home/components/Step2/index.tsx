@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { motion as m } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { RegisterProps } from "../..";
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
 
@@ -12,12 +13,30 @@ interface Props {
 }
 
 export function Step2({register, setRegister, handleNextStep, setIsSearchCep, isSearchCep}: Props){
-    console.log({   isSearchCep})
+  const [cepIsValid, setCepIsValid] = useState<boolean | null>(null);
   useEffect(() => {
     return () => {
       setIsSearchCep(false);
     }
   }, [])
+
+  useEffect(() => {
+    if (register?.cep?.length === 9){
+      (async () => {
+        const result = await axios.get(`https://viacep.com.br/ws/${register.cep.replace("-", "")}/json/`);
+
+        if (result.data.erro){
+          setCepIsValid(false);
+          return
+        }
+
+        setCepIsValid(true);
+      })()
+    }else {
+      setCepIsValid(false);
+    }
+  }, [register?.cep])
+
   return(
     <>
       {!isSearchCep ? (
@@ -31,7 +50,7 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
           <p className='mb-8 text-center text-gray-500 text-sm'>Esta é uma informação vital para personalizar o conteúdo com base na sua localização.</p>
 
           <input 
-            className='border-[1px] border-[#ddd] px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg text-primary focus:outline-primary'
+            className={`border-[1px] ${cepIsValid === true ? "border-primary" : cepIsValid === false ? 'border-red' : "border-[#ddd]"} px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg text-primary focus:outline-none`}
             placeholder='5555-555'
             value={register?.cep}
             type={register?.cep?.length === 9 ? "text" : "number"}
@@ -58,7 +77,7 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
             Não sabe seu CEP?
           </button>
 
-          <ButtonPrimary text='PRÓXIMO' className='mb-10' onClick={() => handleNextStep()}/>
+          <ButtonPrimary disabled={cepIsValid !== true} text='PRÓXIMO' className='mb-10' onClick={() => handleNextStep()}/>
         </m.main>
       ) : (
         <>
