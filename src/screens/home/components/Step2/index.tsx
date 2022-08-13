@@ -33,7 +33,6 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
         setCepIsValid(true);
       })()
     }else {
-      setCepIsValid(false);
     }
   }, [register?.cep])
 

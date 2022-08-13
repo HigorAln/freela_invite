@@ -13,7 +13,7 @@ export const Step4 = () => {
     if (iOS) {
       linkToRedirect.current = 'https://apps.apple.com/br/app/cidad%C3%A3o-digital/id1373289741';
     } else {
-      linkToRedirect.current = 'https://google.com';
+      linkToRedirect.current = 'https://play.google.com/store/apps/details?id=com.eleitordigital';
     }
   }, [])
 

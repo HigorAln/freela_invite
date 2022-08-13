@@ -37,7 +37,7 @@ export const Step1 = ({ register, setRegister, handleNextStep}: Props) => {
         }}
       />  
 
-      <ButtonPrimary disabled={register?.number.length !== 19} text='PRÓXIMO' className='mb-10' onClick={handleNextStep} />
+      <ButtonPrimary disabled={register?.number?.length !== 19} text='PRÓXIMO' className='mb-10' onClick={handleNextStep} />
     </m.main>
   )
 }
