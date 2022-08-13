@@ -1,17 +1,17 @@
 import { motion as m } from 'framer-motion';
-import { RegisterProps } from "../..";
+import { useState } from 'react';
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
 interface Props {
-  register: RegisterProps;
-  setRegister: (number: RegisterProps) => void;
+  nameRef: any;
   handleNextStep: () => void;
 }
 
 
-export function Step3({handleNextStep, register, setRegister}: Props){
+export function Step3({handleNextStep, nameRef}: Props){
+  const [error, setError] = useState(false);
   return(
     <m.main 
-      className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-9'
+      className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-[calc(600px-56px)] justify-center items-center p-9'
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
@@ -20,15 +20,19 @@ export function Step3({handleNextStep, register, setRegister}: Props){
       <p className='mb-10 text-center text-gray-500 text-sm'>Insira abaixo o seu nome ou como gostaria de ser chamado(a). <span className="text-primary">Ex.: Joao Silva</span></p>
 
       <input 
-        className='border-[1px] border-[#ddd] px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg text-primary focus:outline-primary'
-        value={register?.name}
+        className={`border-[1px] ${error ? "border-red" : "border-gray-100"} px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg text-primary focus:outline-primary`}
         type="text"
         onChange={(e) => {
-          setRegister({...register, name: e.target.value})
+          nameRef.current = e.target.value;
         }}
       />
 
-      <ButtonPrimary text='PRÓXIMO' className='mt-8' onClick={handleNextStep}/>
+      <ButtonPrimary text='PRÓXIMO' className='mt-8' onClick={() => {
+        if (nameRef.current?.length < 5){
+          setError(true);
+        }
+        nameRef.current?.length > 5 && handleNextStep();
+      }}/>
 
       <p className="text-[10px] mt-5 text-center">Ao prosseguir, você estará concordando com os <span className="underline">Termos de condições de serviço, políticas de privacidade, políticas de copyright e os termos de comunidade.</span></p>
     </m.main>

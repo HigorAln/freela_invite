@@ -5762,11 +5762,16 @@ const all = {
 
 export const UFMapped = all.estados.map(estado => {
   return {
-    label: estado.sigla,
+    label: estado.nome,
     value: estado.sigla,
   }
 })
 
 export const CityMapped = (UF: string) => {
-  return all.estados.find(estado => estado.sigla === UF)?.cidades
+  return all.estados.find(estado => estado.sigla === UF)?.cidades.map((city) => {
+    return {
+      label: city,
+      value: city,
+    }
+  })
 }

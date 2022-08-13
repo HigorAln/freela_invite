@@ -1,19 +1,18 @@
 import axios from 'axios';
 import { motion as m } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { RegisterProps } from "../..";
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
+import { useCep } from '../../../../context/Cep/index';
+import { SearchCep } from './SearchCep';
 
 interface Props {
-  register: RegisterProps;
-  setRegister: (number: RegisterProps) => void;
   handleNextStep: (number?: number) => void;
-  setIsSearchCep: (searchCep: boolean) => void;
-  isSearchCep: boolean;
 }
 
-export function Step2({register, setRegister, handleNextStep, setIsSearchCep, isSearchCep}: Props){
+export function Step2({handleNextStep}: Props){
   const [cepIsValid, setCepIsValid] = useState<boolean | null>(null);
+  const { isSearchCep, setIsSearchCep, cep, setCep } = useCep();
+
   useEffect(() => {
     return () => {
       setIsSearchCep(false);
@@ -21,9 +20,9 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
   }, [])
 
   useEffect(() => {
-    if (register?.cep?.length === 9){
+    if (cep?.length === 9){
       (async () => {
-        const result = await axios.get(`https://viacep.com.br/ws/${register.cep.replace("-", "")}/json/`);
+        const result = await axios.get(`https://viacep.com.br/ws/${cep.replace("-", "")}/json/`);
 
         if (result.data.erro){
           setCepIsValid(false);
@@ -32,15 +31,15 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
 
         setCepIsValid(true);
       })()
-    }else {
+    }else { 
     }
-  }, [register?.cep])
+  }, [cep])
 
   return(
     <>
       {!isSearchCep ? (
         <m.main 
-          className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full justify-center items-center p-10'
+          className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-[calc(600px-56px)] justify-center items-center p-10'
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
@@ -51,20 +50,19 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
           <input 
             className={`border-[1px] ${cepIsValid === true ? "border-primary" : cepIsValid === false ? 'border-red' : "border-[#ddd]"} px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg text-primary focus:outline-none`}
             placeholder='5555-555'
-            value={register?.cep}
-            type={register?.cep?.length === 9 ? "text" : "number"}
+            value={cep}
+            type={cep?.length === 9 ? "text" : "number"}
             max={9}
             maxLength={9}
             onChange={(e) => {
               if (e.target.value.length === 9) {
-                setRegister(register)
                 return
               }
               const value = e.target.value
               .replace(/\D/g, "")
               .replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
               
-              setRegister({...register, cep: value})
+              setCep(value)
             }}
           />
 
@@ -80,17 +78,7 @@ export function Step2({register, setRegister, handleNextStep, setIsSearchCep, is
         </m.main>
       ) : (
         <>
-          <m.main 
-            className='flex flex-1 flex-col h-[calc(100vh-56px)] sm:h-full items-center p-10'
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-          >
-           
-           <m.h1 className='text-txt-primary text-xl text-center'>Digite sua localizacao para que possamos encontrar seu cep!</m.h1>
-
-            {/* <ButtonPrimary text='PRÓXIMO' className='mb-10' onClick={() => handleNextStep()}/> */}
-          </m.main>
+          <SearchCep handleNextStep={handleNextStep} />
         </>
       )}
     </>

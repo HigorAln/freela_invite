@@ -1,12 +1,17 @@
-import { Route, Routes } from "react-router-dom"
-import Home from "./screens/home"
+import { Route, Routes } from "react-router-dom";
+import { CepProvider } from './context/Cep/index';
+import Home from "./screens/home";
 
 
 
 export const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />}/>
+      <Route path="/" element={
+        <CepProvider>
+          <Home />
+        </CepProvider>
+      }/>
     </Routes>
   )
 }
