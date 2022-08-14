@@ -1,5 +1,5 @@
 import { motion as m } from 'framer-motion';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { ButtonPrimary } from "../../../../components/Button/ButtonPrimary";
 
 interface Props {
@@ -7,9 +7,8 @@ interface Props {
 }
 
 export const Step1 = ({ handleNextStep}: Props) => {
-  const { watch, setValue } = useForm();
+  const [number ,setNumber] = useState("")
 
-  const number = watch("number")
   return(
     <m.main 
       className='flex flex-1 flex-col h-[calc(100vh-56px)] border-red sm:h-[calc(600px-56px)] justify-center items-center p-10'
@@ -34,7 +33,7 @@ export const Step1 = ({ handleNextStep}: Props) => {
             .replace(/(.{7})(\d)/,"$1) $2")
             .replace(/(.{14})(\d)/, "$1-$2")
 
-            setValue('number', value)
+            setNumber(value)
         }}
       />  
 
