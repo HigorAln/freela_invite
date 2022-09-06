@@ -7,15 +7,15 @@ export const Step4 = () => {
   const linkToRedirect = useRef('');
 
   useEffect(() => {
-    var iOS = 
-        !!navigator.platform &&
-        /iPad|iPhone|iPod/.test(navigator.platform);
+    // var iOS = 
+    //     !!navigator.platform &&
+    //     /iPad|iPhone|iPod/.test(navigator.platform);
         
-    if (iOS) {
-      linkToRedirect.current = 'https://apps.apple.com/br/app/cidad%C3%A3o-digital/id1373289741';
-    } else {
-      linkToRedirect.current = 'https://play.google.com/store/apps/details?id=com.eleitordigital';
-    }
+    // if (iOS) {
+    //   linkToRedirect.current = 'https://apps.apple.com/br/app/cidad%C3%A3o-digital/id1373289741';
+    // } else {
+    //   linkToRedirect.current = 'https://play.google.com/store/apps/details?id=com.eleitordigital';
+    // }
   }, [])
 
   return(
@@ -31,10 +31,10 @@ export const Step4 = () => {
 
       <h1 className='text-xl text-center mb-7'>Cadastro realizado com sucesso!</h1>
 
-      <p className='mb-9 text-lg tracking-wide text-primary'>Baixar Cidadão Digital</p>
+      <p className='mb-9 text-lg tracking-wide text-primary'>Baixar o aplicativo!!</p>
       
-      <a target={"_blank"} href={linkToRedirect.current}>
-        <ButtonPrimary text='Baixar' />
+      <a target={"_blank"} href={"#"}>
+        <ButtonPrimary text='Baixar' onClick={() => alert("This is just one test :D")} />
       </a>
 
     </m.main>

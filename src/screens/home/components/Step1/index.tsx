@@ -22,7 +22,7 @@ export const Step1 = ({ handleNextStep}: Props) => {
       <p className='mb-5 text-center w-5/6 text-gray-500 text-sm'>Sendo eleitor ou candidato insira seu número de celular para criação ou login de perfil.</p>
 
       <input 
-        className='border-[1px] border-[#ddd] px-4 py-3 w-full sm:w-auto rounded-full text-center text-lg mb-8 text-primary focus:outline-primary'
+        className='border-[1px] border-[#ddd] px-4 pl-14 py-3 w-full sm:w-auto rounded-full text-lg mb-8 text-primary focus:outline-primary'
         placeholder='+55 (99) 9 99999-9999'
         value={number}
         maxLength={19}

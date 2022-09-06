@@ -77,7 +77,7 @@ export function SearchCep({handleNextStep}: Props){
   
   return(
     <m.main 
-      className='flex flex-1 flex-col gap-2 h-[calc(100vh-56px)] sm:h-[calc(600px-56px)] max-h-full p-10 px-4 overflow-scroll'
+      className='flex flex-1 flex-col gap-2 h-[calc(100vh-56px)] sm:h-[calc(600px-56px)] max-h-full p-10 px-4 overflow-auto'
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y:0 }}
       exit={{ opacity: 0, y: -50 }}
@@ -116,9 +116,10 @@ export function SearchCep({handleNextStep}: Props){
         onClick={() => {
           setCity(element.value)
           setIsSearchCity(false);
-          setIsSearchStreet(true)
           setListCities([]);
           setSearchCity("")
+          // setIsSearchStreet(true)
+          handleNextStep();
         }}
       >
         <h1 className='text-2xl'>{element.label}</h1>
